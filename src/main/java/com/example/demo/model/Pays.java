@@ -6,16 +6,16 @@ import javax.persistence.Id;
 @Entity
 public class Pays {
     @Id
-    private String codeIso;
+    private String id;
 
     private String libelle;
 
-    public String getCodeIso() {
-        return codeIso;
+    public String getId() {
+        return id;
     }
 
-    public void setCodeIso(String codeIso) {
-        this.codeIso = codeIso;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLibelle() {
