@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Pays {
@@ -14,6 +12,9 @@ public class Pays {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Pays subPays;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Departement> departementList;
 
     public String getId() {
         return id;
@@ -37,5 +38,13 @@ public class Pays {
 
     public void setSubPays(Pays subPays) {
         this.subPays = subPays;
+    }
+
+    public List<Departement> getDepartementList() {
+        return departementList;
+    }
+
+    public void setDepartementList(List<Departement> departementList) {
+        this.departementList = departementList;
     }
 }
