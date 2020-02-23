@@ -1,10 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.PaysRepository;
-import com.example.demo.mapper.PaysMapper;
 import com.example.demo.model.Pays;
 import com.example.demo.service.PaysService;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +16,6 @@ import java.util.Optional;
 @Transactional
 public class PaysServiceImpl implements PaysService {
     private final PaysRepository repository;
-    private PaysMapper mapper = Mappers.getMapper(PaysMapper.class);
 
     public PaysServiceImpl(PaysRepository repository) {
         this.repository = repository;
@@ -30,8 +27,8 @@ public class PaysServiceImpl implements PaysService {
     }
 
     @Override
-    public void save(List<Pays> entities) {
-        repository.saveAll(entities);
+    public List<Pays> save(List<Pays> entities) {
+        return (List<Pays>) repository.saveAll(entities);
     }
 
     @Override
@@ -58,8 +55,8 @@ public class PaysServiceImpl implements PaysService {
 
     @Override
     public Pays updateById(Pays entity) {
-        Optional<Pays> optionalDto = findById(entity.getId());
-        if (optionalDto.isPresent()) {
+        Optional<Pays> optionalEntity = findById(entity.getId());
+        if (optionalEntity.isPresent()) {
             return save(entity);
         }
         return null;

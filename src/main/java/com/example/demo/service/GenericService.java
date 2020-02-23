@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.PaysDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,7 +9,7 @@ import java.util.Optional;
 public interface GenericService<E, M> {
     E save(E entity);
 
-    void save(List<E> entities);
+    List<E> save(List<E> entities);
 
     void deleteById(M id);
 

@@ -5,30 +5,26 @@ import com.example.demo.dto.PaysDTO;
 import com.example.demo.mapper.PaysMapper;
 import com.example.demo.model.Pays;
 import com.example.demo.service.PaysService;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestMapping("/api/pays")
 @RestController
 public class PaysControllerImpl implements PaysController {
 
-    private PaysMapper paysMapper= Mappers.getMapper(PaysMapper.class);
-
     private final PaysService paysService;
+    private final PaysMapper paysMapper;
 
-    public PaysControllerImpl(PaysService paysService) {
+
+    public PaysControllerImpl(PaysService paysService, PaysMapper paysMapper) {
         this.paysService = paysService;
+        this.paysMapper = paysMapper;
     }
 
 
@@ -63,16 +59,16 @@ public class PaysControllerImpl implements PaysController {
     @GetMapping("/page-query")
     public Page<PaysDTO> pageQuery(Pageable pageable) {
         Page<Pays> entityPage = paysService.findAll(pageable);
-        List<PaysDTO> dtoList =entityPage
+        List<PaysDTO> dtoList = entityPage
                 .stream()
-                .map(pays ->  paysMapper.toDto(pays)).collect(Collectors.toList());
-        return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements()) ;
+                .map(paysMapper::toDto).collect(Collectors.toList());
+        return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements());
     }
 
     @Override
     @PutMapping
-    public PaysDTO update(@RequestBody PaysDTO dto) {
-        Pays entity = paysMapper.toEntity(dto);
-        return paysMapper.toDto(paysService.updateById(entity));
+    public PaysDTO update(@RequestBody PaysDTO paysDTO) {
+        Pays pays = paysMapper.toEntity(paysDTO);
+        return paysMapper.toDto(paysService.updateById(pays));
     }
 }

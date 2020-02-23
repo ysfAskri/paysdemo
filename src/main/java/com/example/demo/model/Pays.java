@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pays {
@@ -9,6 +11,9 @@ public class Pays {
     private String id;
 
     private String libelle;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Pays subPays;
 
     public String getId() {
         return id;
@@ -24,5 +29,13 @@ public class Pays {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
+    }
+
+    public Pays getSubPays() {
+        return subPays;
+    }
+
+    public void setSubPays(Pays subPays) {
+        this.subPays = subPays;
     }
 }

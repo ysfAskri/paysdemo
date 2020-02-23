@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-public abstract class AbstractDto <D>{
+public abstract class AbstractDTO <D>{
 
     private D id;
 
