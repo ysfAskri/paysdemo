@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Departement {
+public class Departement implements AbstractEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,8 @@ public class Departement {
 
     private String nom;
 
-    public long getId() {
+    @Override
+    public Long getId() {
         return id;
     }
 

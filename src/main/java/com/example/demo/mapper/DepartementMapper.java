@@ -5,9 +5,10 @@ import com.example.demo.model.Departement;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = ReferenceMapper.class)
+@Mapper(componentModel = "spring",
+        uses = ReferenceMapper.class)
 public interface DepartementMapper extends GenericMapper<Departement, DepartementDTO> {
     @Override
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", ignore = false)
     Departement asEntity(DepartementDTO dto);
 }

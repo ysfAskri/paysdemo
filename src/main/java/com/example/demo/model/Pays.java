@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Pays {
+public class Pays implements AbstractEntity<String> {
     @Id
     private String id;
 
@@ -16,6 +16,7 @@ public class Pays {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Departement> departementList;
 
+    @Override
     public String getId() {
         return id;
     }
