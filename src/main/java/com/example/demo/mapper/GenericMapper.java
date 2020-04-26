@@ -3,12 +3,12 @@ package com.example.demo.mapper;
 import java.util.List;
 
 public interface GenericMapper<E, D> {
-    E toEntity(D dto);
+    E asEntity(D dto);
 
-    D toDto(E entity);
+    D asDTO(E entity);
 
-    List<E> toEntityList(List<D> dtoList);
+    List<E> asEntityList(List<D> dtoList);
 
-    List<D> toDtoList(List<E> entityList);
+    List<D> asDTOList(List<E> entityList);
 
 }

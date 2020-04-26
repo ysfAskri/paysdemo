@@ -28,5 +28,5 @@ public interface DepartementController {
     public Page<DepartementDTO> pageQuery(Pageable pageable);
 
     @ApiOperation("Update one data")
-    public DepartementDTO update(@RequestBody DepartementDTO dto);
+    public DepartementDTO update(@RequestBody DepartementDTO dto, Long id);
 }

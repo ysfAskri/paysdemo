@@ -14,35 +14,35 @@ public class PaysDTO extends AbstractDTO<String> {
     public PaysDTO() {
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return this.id;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLibelle() {
         return this.libelle;
     }
 
-    public void setSubPays(Pays subPays) {
-        this.subPays = subPays;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
     public Pays getSubPays() {
         return this.subPays;
     }
 
-    public void setDepartementList(java.util.List<com.example.demo.model.Departement> departementList) {
-        this.departementList = departementList;
+    public void setSubPays(Pays subPays) {
+        this.subPays = subPays;
     }
 
     public java.util.List<com.example.demo.model.Departement> getDepartementList() {
         return this.departementList;
+    }
+
+    public void setDepartementList(java.util.List<com.example.demo.model.Departement> departementList) {
+        this.departementList = departementList;
     }
 }

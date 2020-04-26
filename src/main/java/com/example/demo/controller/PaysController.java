@@ -28,5 +28,5 @@ public interface PaysController {
     public Page<PaysDTO> pageQuery(Pageable pageable);
 
     @ApiOperation("Update one data")
-    public PaysDTO update(@RequestBody PaysDTO dto);
+    public PaysDTO update(@RequestBody PaysDTO dto, String id);
 }

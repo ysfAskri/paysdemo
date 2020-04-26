@@ -1,8 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.PaysRepository;
-import com.example.demo.dto.PaysDTO;
-import com.example.demo.mapper.PaysMapper;
 import com.example.demo.model.Pays;
 import com.example.demo.service.PaysService;
 import org.springframework.data.domain.Page;
@@ -56,7 +54,7 @@ public class PaysServiceImpl implements PaysService {
     }
 
     @Override
-    public Pays updateById(Pays entity) {
+    public Pays update(Pays entity, String id) {
         Optional<Pays> optional = findById(entity.getId());
         if (optional.isPresent()) {
             return save(entity);

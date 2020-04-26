@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/api/pays")
+@RequestMapping("/pays")
 @RestController
 public class PaysControllerImpl implements PaysController {
     private final PaysService paysService;
@@ -29,15 +29,15 @@ public class PaysControllerImpl implements PaysController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PaysDTO save(@RequestBody PaysDTO paysDTO) {
-        Pays pays = paysMapper.toEntity(paysDTO);
-        return paysMapper.toDto(paysService.save(pays));
+        Pays pays = paysMapper.asEntity(paysDTO);
+        return paysMapper.asDTO(paysService.save(pays));
     }
 
     @Override
     @GetMapping("/{id}")
     public PaysDTO findById(@PathVariable("id") String id) {
         Pays pays = paysService.findById(id).orElse(null);
-        return paysMapper.toDto(pays);
+        return paysMapper.asDTO(pays);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PaysControllerImpl implements PaysController {
     @Override
     @GetMapping
     public List<PaysDTO> list() {
-        return paysMapper.toDtoList(paysService.findAll());
+        return paysMapper.asDTOList(paysService.findAll());
     }
 
     @Override
@@ -58,14 +58,14 @@ public class PaysControllerImpl implements PaysController {
         Page<Pays> paysPage = paysService.findAll(pageable);
         List<PaysDTO> dtoList = paysPage
                 .stream()
-                .map(paysMapper::toDto).collect(Collectors.toList());
+                .map(paysMapper::asDTO).collect(Collectors.toList());
         return new PageImpl<>(dtoList, pageable, paysPage.getTotalElements());
     }
 
     @Override
-    @PutMapping
-    public PaysDTO update(@RequestBody PaysDTO paysDTO) {
-        Pays pays = paysMapper.toEntity(paysDTO);
-        return paysMapper.toDto(paysService.updateById(pays));
+    @PutMapping("/{id}")
+    public PaysDTO update(@RequestBody PaysDTO paysDTO, @PathVariable String id) {
+        Pays pays = paysMapper.asEntity(paysDTO);
+        return paysMapper.asDTO(paysService.update(pays, id));
     }
 }

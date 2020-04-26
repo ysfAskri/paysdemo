@@ -1,11 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.DepartementRepository;
-import com.example.demo.dto.DepartementDTO;
-import com.example.demo.mapper.DepartementMapper;
 import com.example.demo.model.Departement;
 import com.example.demo.service.DepartementService;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -57,7 +54,7 @@ public class DepartementServiceImpl implements DepartementService {
     }
 
     @Override
-    public Departement updateById(Departement entity) {
+    public Departement update(Departement entity, Long id) {
         Optional<Departement> optional = findById(entity.getId());
         if (optional.isPresent()) {
             return save(entity);

@@ -12,10 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequestMapping("/departement")
+@RequestMapping("/departements")
 @RestController
 public class DepartementControllerImpl implements DepartementController {
     private final DepartementService departementService;
@@ -30,15 +29,15 @@ public class DepartementControllerImpl implements DepartementController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public DepartementDTO save(@RequestBody DepartementDTO departementDTO) {
-        Departement departement = departementMapper.toEntity(departementDTO);
-        return departementMapper.toDto(departementService.save(departement));
+        Departement departement = departementMapper.asEntity(departementDTO);
+        return departementMapper.asDTO(departementService.save(departement));
     }
 
     @Override
     @GetMapping("/{id}")
     public DepartementDTO findById(@PathVariable("id") long id) {
         Departement departement = departementService.findById(id).orElse(null);
-        return departementMapper.toDto(departement);
+        return departementMapper.asDTO(departement);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class DepartementControllerImpl implements DepartementController {
     @Override
     @GetMapping
     public List<DepartementDTO> list() {
-        return departementMapper.toDtoList(departementService.findAll());
+        return departementMapper.asDTOList(departementService.findAll());
     }
 
     @Override
@@ -59,14 +58,14 @@ public class DepartementControllerImpl implements DepartementController {
         Page<Departement> departementPage = departementService.findAll(pageable);
         List<DepartementDTO> dtoList = departementPage
                 .stream()
-                .map(departementMapper::toDto).collect(Collectors.toList());
+                .map(departementMapper::asDTO).collect(Collectors.toList());
         return new PageImpl<>(dtoList, pageable, departementPage.getTotalElements());
     }
 
     @Override
-    @PutMapping
-    public DepartementDTO update(@RequestBody DepartementDTO departementDTO) {
-        Departement departement = departementMapper.toEntity(departementDTO);
-        return departementMapper.toDto(departementService.updateById(departement));
+    @PutMapping("/{id}")
+    public DepartementDTO update(@RequestBody DepartementDTO departementDTO, @PathVariable Long id) {
+        Departement departement = departementMapper.asEntity(departementDTO);
+        return departementMapper.asDTO(departementService.update(departement, id));
     }
 }
